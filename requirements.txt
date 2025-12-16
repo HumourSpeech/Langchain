@@ -15,4 +15,7 @@ chromadb
 langchain_chroma
 langchain_perplexity
 langchain_groq
-
+langchain_core
+fastapi
+uvicorn
+sse_starlette
