@@ -1,6 +1,6 @@
 # LangChain Practice Repository
 
-Welcome to this comprehensive repository dedicated to mastering **LangChain** and **Generative AI** concepts. This project serves as a structured learning path, documenting various techniques from basic data ingestion to building complex RAG (Retrieval-Augmented Generation) applications.
+Welcome to this comprehensive repository dedicated to mastering **LangChain** and **Generative AI** concepts. This project serves as a structured learning path, documenting various techniques from basic data ingestion to building complex RAG (Retrieval-Augmented Generation) applications and deploying them as APIs.
 
 Here you will find well-documented code examples and notebooks covering the entire lifecycle of an LLM-powered application.
 
@@ -12,7 +12,8 @@ The repository is organized into logical modules, each focusing on a specific as
 - **DataTransformation/**: Methods for splitting and chunking text/data.
 - **Embeddings/**: Converting text into vector representations using different providers.
 - **VectorDatabase/**: Storing and retrieving vector embeddings.
-- **LLMs/**: Working with Large Language Models, Chains, and building applications.
+- **LLMs/**: Working with Large Language Models, Chains, Chatbots, and API deployment.
+- **Projects/**: End-to-end applications and complex use cases.
 
 ---
 
@@ -39,30 +40,49 @@ Embeddings convert text into numerical vectors that capture semantic meaning. Th
 - **HuggingFaceEmbeddings**: Utilizing open-source models from Hugging Face (e.g., `all-MiniLM-L6-v2`) for local or cost-effective embeddings.
 - **OllamaEmbeddings**: Running embeddings locally using Ollama (e.g., `gemma:2b`).
 
-### 4. Vector Databases
+### 4. Vector Databases & Retrievers
 To perform efficient similarity searches, we store embeddings in vector databases. We demonstrate:
 - **Chroma**: An AI-native open-source vector database.
 - **FAISS (Facebook AI Similarity Search)**: A library for efficient similarity search and clustering of dense vectors.
+- **Retrievers**: Understanding `VectorStoreRetriever`, similarity search, and Maximum Marginal Relevance (MMR).
 
-### 5. LLMs & Chains
+### 5. LLMs, Chains & Chatbots
 This is the core where we interact with Language Models and build workflows:
 - **Models**:
   - **ChatOpenAI**: Interacting with OpenAI's GPT models.
   - **ChatOllama / OllamaLLM**: Running open-source models locally (e.g., Gemma, Llama).
-  - **ChatGroq**: Using Groq's high-speed inference API.
+  - **ChatGroq**: Using Groq's high-speed inference API (e.g., `openai/gpt-oss-120b`).
 - **Prompts**:
   - **PromptTemplate** & **ChatPromptTemplate**: Structuring inputs for LLMs.
-- **Parsers**:
-  - **StrOutputParser**: Parsing LLM responses into string formats.
+  - **MessagesPlaceholder**: Handling dynamic history in prompts.
 - **Chains**:
   - **LCEL (LangChain Expression Language)**: Building chains using the `|` syntax.
   - **Retrieval Chains**: Combining LLMs with Vector Stores to answer questions based on documents.
+- **Chatbots**:
+  - **RunnableWithMessageHistory**: Managing session history for stateful conversations.
+  - **Memory**: Handling chat history manually and automatically.
+
+### 6. Deployment (LangServe)
+- **LangServe**: Deploying LangChain runnables and chains as REST APIs using **FastAPI**.
 
 ---
 
 ## 🛠️ Projects & Applications
 
-### Simple RAG Application
+### Conversational QA Chatbot (`Projects/convoQAchatbot.ipynb`)
+A sophisticated RAG-based chatbot that:
+1.  Scrapes data from the web (e.g., Analytics Vidhya).
+2.  Maintains **Chat History** to understand context across multiple turns.
+3.  Uses a **History Aware Retriever** to reformulate queries based on previous interactions.
+4.  Answers questions using retrieved context.
+
+### LangServe API (`LLMs/LangserveAPI.py`)
+A deployment example showing how to:
+1.  Create a translation chain using `ChatGroq`.
+2.  Wrap the chain in a **FastAPI** application using `add_routes`.
+3.  Serve the application locally for external access.
+
+### Simple RAG Application (`LLMs/simpleApp.ipynb`)
 A complete end-to-end pipeline demonstrating:
 1.  Loading data from the web.
 2.  Splitting text into chunks.
@@ -71,7 +91,7 @@ A complete end-to-end pipeline demonstrating:
 5.  Retrieving relevant context.
 6.  Generating answers using an LLM.
 
-### Streamlit App (`Ollama_app.py`)
+### Streamlit App (`LLMs/Ollama_app.py`)
 A interactive web application built with **Streamlit** that utilizes **Ollama** models for translation and other tasks, showcasing how to deploy LangChain logic in a user-friendly interface.
 
 ---
